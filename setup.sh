@@ -120,7 +120,7 @@ touch /opt/virt_data/get_images_list.log
 echo "OK"
 
 
-echo -n "Running chmods and chowns... "
+echo -n "Running chmods, chowns and selinux labels... "
 
 chown -R libvirttui:libvirttui /opt/libvirttui
 chown root:libvirttui /opt/libvirttui/start_virtiofsd
@@ -150,6 +150,9 @@ chmod 2770 /opt/virt_data/vm
 chmod 4755 /usr/local/bin/libvirttui
 chmod 755 /usr/local/bin/virtiofsd
 chmod 755 /usr/local/bin/vncviewer
+
+semanage fcontext -a -t virt_content_t "/opt/virt_data(/.*)?"
+restorecon -R -v /opt/virt_data
 
 echo "OK"
 
